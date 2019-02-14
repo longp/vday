@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> ~ UwU ~ </title>
+
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <meta charset="UTF-8" />
+
+    <link
+      rel="icon"
+      href="https://discoverthreejs.com/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <link href="main.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://threejs.org/build/three.js"></script>
+
+    <script type="x-shader/x-vertex" id="PointVS">
+      attribute float size;
+      varying vec3 vColor;
+
+      void main()
+      {
+        vColor = color;
+        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+        gl_PointSize = size;
+        gl_Position = projectionMatrix * mvPosition;
+      }
+    </script>
+
+    <script type="x-shader/x-fragment" id="PointFS">
+      uniform sampler2D texture;
+      varying vec3 vColor;
+
+      void main()
+      {
+        gl_FragColor = vec4( vColor, 1.0 );
+        gl_FragColor = gl_FragColor * texture2D( texture, gl_PointCoord );
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="container"></div>
+    <h1 class='vday_text'>
+      Happy Valentines! <%=name%>
+    </h1>
+    
+    <footer>
+      <!--
+        Finally, include the script that
+        runs your three.js app.
+      -->
+      <script src="main.js"></script>
+    </footer>
+  </body>
+</html>
